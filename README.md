@@ -1,6 +1,6 @@
-# Demo QA Automation Project
+# Challenge: Automation Project (demoqa)
 
-Este projeto é uma automação de testes para a API de Book Store da Demo QA, utilizando **Cypress** e **Cucumber** com o padrão de projeto **Page Object Model (POM)**. 
+Este projeto é uma automação de testes para a Book Store API , utilizando **Cypress** e **Cucumber** com o padrão de projeto **Page Object Model (POM)**. 
 
 ## Estrutura do Projeto
 
