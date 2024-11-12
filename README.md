@@ -1,6 +1,6 @@
-# Demo QA Automation Project
+# Challenge: Automation Project (demoqa)
 
-Este projeto realiza a automação de testes para a Book Store API da Demo QA, utilizando **Cypress** e **Cucumber**. A estrutura segue o padrão de projeto **Page Object Model (POM)** para testes de frontend e comandos personalizados para testes de backend. Esse setup permite automação de testes em **BDD** (Behavior-Driven Development), onde os cenários de teste são descritos em Gherkin para uma fácil compreensão.
+Este projeto é uma automação de testes para a Book Store API , utilizando **Cypress** e **Cucumber** com o padrão de projeto **Page Object Model (POM)**. 
 
 ## Estrutura do Projeto
 
