@@ -1,20 +1,17 @@
 const { defineConfig } = require("cypress");
-const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
-const addCucumberPreprocessorPlugin = require("@badeball/cypress-cucumber-preprocessor").addCucumberPreprocessorPlugin;
 
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
-      const bundler = createBundler({
-        plugins: [require("@badeball/cypress-cucumber-preprocessor/esbuild")],
+      on("task", {
+        logToTerminal(message) {
+          console.log(message);
+          return null;
+        },
       });
-
-      on("file:preprocessor", bundler);
-      addCucumberPreprocessorPlugin(on, config);
-
       return config;
     },
-    specPattern: "cypress/e2e/**/*.feature",
     baseUrl: "https://demoqa.com",
+    specPattern: "cypress/e2e/**/*.cy.js",
   },
 });
