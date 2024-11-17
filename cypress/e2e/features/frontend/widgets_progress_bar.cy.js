@@ -1,4 +1,4 @@
-import WidgetsPage from '../../page_objects/Widgets_progress_bar.page';
+import WidgetsPage from '../../page_objects/ProgressBarPage';
 
 describe('Teste do Progress Bar', () => {
     beforeEach(() => {

@@ -1,4 +1,4 @@
-import BrowserWindowsPage from '../../page_objects/Browser_windows.page';
+import BrowserWindowsPage from '../../page_objects/BrowserWindowsPage';
 
 const browserWindowsPage = new BrowserWindowsPage();
 

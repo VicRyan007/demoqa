@@ -9,6 +9,8 @@ class WidgetsPage {
         cy.get('#startStopButton').click();
     }
 
+    /* Nesta função, o ponto de parada é o 24 porque o carregamento da barra é muito rápido, 
+    então se fez necessário parar em um valor antes do esperado para que a barra parasse exatamente em 25%*/
     stopProgressBarAt25() {
         cy.get('#progressBar > .progress-bar')
             .invoke('attr', 'aria-valuenow')
@@ -17,7 +19,7 @@ class WidgetsPage {
                 if (progressValue < 24) {
                     cy.wait(10); 
                     this.stopProgressBarAt25();
-                } else if (progressValue === 24) {
+                } else if (progressValue === 24) { 
                     cy.get('#startStopButton').click(); 
                     cy.wait(3000)
                 } else {

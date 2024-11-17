@@ -1,14 +1,15 @@
----
+### Updated README
 
 # Demo QA Automation Project
 
-Este projeto realiza a automação de testes para a API Book Store, utilizando **Cypress**. A estrutura do projeto utiliza **Page Object Model (POM)** para testes de frontend e comandos personalizados para testes de backend. Esse setup permite automação de testes com uma estrutura organizada e reutilizável.
+Este projeto realiza a automação de testes para a **Book Store API** e funcionalidades de frontend utilizando **Cypress**. O projeto segue os princípios do **Page Object Model (POM)** para organização e reutilização do código.
 
 ## Estrutura do Projeto
 
-- **cypress/e2e**: Arquivos de teste Cypress para backend e frontend.
-- **cypress/page_objects**: Objetos de página para o frontend, encapsulando a interação com elementos específicos de cada página.
-- **cypress/support**: Comandos Cypress personalizados para requisições de API e configurações adicionais.
+- **cypress/e2e/features/backend**: Testes de integração com a API da Book Store.
+- **cypress/e2e/features/frontend**: Testes de interface (frontend) automatizados.
+- **cypress/page_objects**: Contém os arquivos Page Object encapsulando ações de interação para diferentes páginas.
+- **cypress/support**: Comandos Cypress personalizados e configurações globais.
 
 ## Pré-requisitos
 
@@ -23,7 +24,7 @@ Este projeto realiza a automação de testes para a API Book Store, utilizando *
    git clone https://github.com/VicRyan007/demoqa.git
    cd demoqa
    ```
-   
+
 2. Instale as dependências:
 
    ```bash
@@ -32,77 +33,93 @@ Este projeto realiza a automação de testes para a API Book Store, utilizando *
 
 ## Executando os Testes
 
-Para executar os testes de API (backend), você pode rodar o Cypress em modo interativo ou em modo headless.
+### Testes de Backend
 
-### Modo Interativo
+Os testes de backend validam as principais funcionalidades da API da Book Store, como criação de usuários, autenticação e manipulação de dados relacionados a livros.
 
-Este comando abre a interface do Cypress, onde você pode selecionar e visualizar a execução dos testes.
+1. Execute os testes de backend no modo headless:
+
+   ```bash
+   npx cypress run --spec "cypress/e2e/features/backend/user_management.cy.js"
+   ```
+
+#### Endpoints Testados
+
+- **Criação de Usuário**:
+  - Endpoint: `POST /Account/v1/User`
+  - Valida a criação de um usuário com um nome único e senha forte.
+
+- **Geração de Token**:
+  - Endpoint: `POST /Account/v1/GenerateToken`
+  - Verifica a geração de um token JWT para autenticação.
+
+- **Verificação de Autorização**:
+  - Endpoint: `POST /Account/v1/Authorized`
+  - Confirma se as credenciais fornecidas são válidas.
+
+- **Listagem de Livros**:
+  - Endpoint: `GET /BookStore/v1/Books`
+  - Retorna uma lista de livros disponíveis na biblioteca.
+
+- **Aluguel de Livros**:
+  - Endpoint: `POST /BookStore/v1/Books`
+  - Aluga dois livros para o usuário autenticado.
+
+- **Detalhes do Usuário**:
+  - Endpoint: `GET /Account/v1/User/{userId}`
+  - Verifica se os livros alugados estão associados ao usuário correto.
+
+### Testes de Frontend
+
+#### Modos de Execução
+
+Os testes podem ser executados em modo interativo ou headless.
+
+##### Modo Interativo
+
+Abre a interface do Cypress para visualizar os testes:
 
 ```bash
 npx cypress open
 ```
 
-### Modo Headless
+##### Modo Headless
 
-Este comando executa todos os testes automaticamente no terminal, gerando relatórios que podem ser revisados posteriormente.
+Executa todos os testes no terminal:
 
 ```bash
 npx cypress run
 ```
 
-## Descrição dos Testes de Backend
+#### Funcionalidades Testadas
 
-Os testes de backend cobrem os principais endpoints da **Book Store API**:
+1. **Practice Form**:
+   - Preenche um formulário de prática com valores dinâmicos.
+   - Faz o upload de um arquivo `.txt` e valida a submissão do formulário.
 
-1. **Criar Usuário**
-   - **Endpoint**: `POST /Account/v1/User`
-   - **Descrição**: Valida a criação de um novo usuário com nome gerado aleatoriamente.
+2. **Browser Windows**:
+   - Valida a abertura de uma nova janela e verifica o conteúdo exibido.
 
-2. **Gerar Token de Acesso**
-   - **Endpoint**: `POST /Account/v1/GenerateToken`
-   - **Descrição**: Valida a geração de um token JWT para o usuário criado.
+3. **Widgets - Progress Bar**:
+   - Controla o carregamento da barra de progresso, validando valores específicos e o comportamento do botão `Reset`.
 
-3. **Confirmar Autorização**
-   - **Endpoint**: `POST /Account/v1/Authorized`
-   - **Descrição**: Verifica se o usuário criado está autorizado, confirmando a resposta `true` ou `false`.
+4. **Sortable - Lista e Grid**:
+   - Ordena os elementos em uma lista e em uma grade utilizando métodos de drag and drop.
 
-4. **Listar Livros Disponíveis**
-   - **Endpoint**: `GET /BookStore/v1/Books`
-   - **Descrição**: Verifica se a lista de livros é retornada com sucesso.
+5. **Web Tables**:
+   - Manipula dados em tabelas, como adição, edição e exclusão de registros.
 
-5. **Alugar Livros**
-   - **Endpoint**: `POST /BookStore/v1/Books`
-   - **Descrição**: Aluga dois livros específicos para o usuário autenticado.
+## Estrutura de Page Objects
 
-6. **Obter Detalhes do Usuário com Livros Alugados**
-   - **Endpoint**: `GET /Account/v1/User/{userID}`
-   - **Descrição**: Verifica se os detalhes do usuário incluem os livros alugados e exibe as informações do usuário e dos livros alugados separadamente.
+Os arquivos na pasta `cypress/page_objects` encapsulam as interações com elementos da página, garantindo reutilização e organização do código.
 
-## Estrutura de Variáveis e Configurações
+- **PracticeFormPage.js**: Métodos para preencher e validar o formulário.
+- **BrowserWindowsPage.js**: Métodos para validar a abertura de novas janelas.
+- **ProgressBarPage.js**: Métodos para manipular a barra de progresso.
+- **SortablePage.js**: Métodos para ordenação de elementos na lista e grid.
+- **WebTablesPage.js**: Métodos para manipulação de dados na tabela.
 
-O projeto utiliza variáveis de ambiente para armazenar `userId` e `token`, gerados durante a execução dos testes. Essas variáveis permitem a continuidade dos testes entre etapas, garantindo que as informações do usuário e o token de autenticação estejam disponíveis para operações subsequentes.
-
-## Estrutura de Pastas e Arquivos
-
-- **cypress/e2e**: Cada arquivo `.cy.js` define cenários de teste para os endpoints da API, estruturados para execução com Cypress.
-- **cypress/page_objects** (Frontend): Encapsula a interação com elementos visuais de cada página, utilizado apenas para testes de interface.
-- **cypress/support/commands.js**: Contém comandos Cypress personalizados que simplificam as requisições de API, permitindo reutilizar as chamadas em vários cenários.
-
-## Estrutura de Comandos Personalizados para Backend
-
-Os testes de backend são implementados usando comandos Cypress personalizados para interagir com os endpoints da API. Abaixo estão alguns dos comandos principais:
-
-- `cy.createUser()`: Cria um novo usuário com nome gerado aleatoriamente.
-- `cy.generateToken()`: Gera um token de autenticação para o usuário criado.
-- `cy.authorizeUser()`: Verifica se o usuário criado possui autorização.
-- `cy.listBooks()`: Obtém uma lista de todos os livros disponíveis.
-- `cy.rentBooks(isbnList, userId, token)`: Aluga livros específicos para o usuário.
-- `cy.getUserDetails(userId, token)`: Obtém os detalhes do usuário, incluindo os livros alugados.
-
-Esses comandos são chamados dentro dos arquivos de teste e encapsulam as chamadas para os endpoints da API, simplificando o código e facilitando a manutenção.
-
-## Exemplo de Execução e Logs
-
-Os testes exibem logs relevantes diretamente no terminal, incluindo informações de criação de usuário, geração de token, autorização, listagem de livros disponíveis, detalhes dos livros alugados, e detalhes do usuário com livros alugados. Esses logs facilitam o monitoramento e análise dos resultados dos testes.
 
 ---
+
+Este projeto foi desenvolvido para demonstrar habilidades em automação de testes utilizando Cypress. 

@@ -1,4 +1,4 @@
-import WebTablesPage from '../../page_objects/Web_tables_pages';
+import WebTablesPage from '../../page_objects/WebTablesPage';
 
 const webTablesPage = new WebTablesPage();
 
